@@ -3,14 +3,22 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] private Player player;
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] public ParticleSystem AttackParticle;
+    
+    [Header("NPC Stats")]
     [SerializeField] private int strength;
+    [SerializeField] private float speed;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float movementAccuracy;
+    [SerializeField] private float attackRange;
 
-    public GameObject Player => player;
+    public Player Player => player;
+    public CharacterController CharacterController => characterController;
     public int Strength => strength;
-
-    public void Rotate(Vector3 direction)
-    {
-        
-    }
+    public float Speed => speed;
+    public float RotationSpeed => rotationSpeed;
+    public float MovementAccuracy => movementAccuracy;
+    public float AttackRange => attackRange;
 }
