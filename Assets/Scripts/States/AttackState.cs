@@ -16,9 +16,7 @@ public class AttackState : State
         
         var direction = _player.transform.position - _NPC.transform.position;
         
-        _NPC.transform.rotation = Quaternion.Slerp(_NPC.transform.rotation,
-            Quaternion.LookRotation(direction), 
-            _NPC.RotationSpeed * Time.deltaTime);
+        _NPC.RotateTo(direction);
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

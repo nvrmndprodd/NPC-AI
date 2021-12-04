@@ -6,7 +6,7 @@ using UnityEngine;
 public class IdleState : State
 {
     private float _idleTime;
-    private Vector3 onStateEnterDistance;
+    private Vector3 onStateEnterDirectionToPlayer;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class IdleState : State
         base.OnStateEnter(animator, stateInfo, layerIndex);
         UpdateFlags(animator);
         _idleTime = 0f;
-        onStateEnterDistance = _player.transform.position - _NPC.transform.position;
+        onStateEnterDirectionToPlayer = _player.transform.position - _NPC.transform.position;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -26,9 +26,7 @@ public class IdleState : State
     {
         _idleTime += Time.deltaTime;
         
-        _NPC.transform.rotation = Quaternion.Slerp(_NPC.transform.rotation,
-            Quaternion.LookRotation(onStateEnterDistance), 
-            _NPC.RotationSpeed * Time.deltaTime);
+        _NPC.RotateTo(onStateEnterDirectionToPlayer);
         
         UpdateFlags(animator);
     }

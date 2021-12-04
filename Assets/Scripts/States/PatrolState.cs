@@ -18,6 +18,7 @@ public class PatrolState : State
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_waypoints.Length == 0) return;
+        
         if (Vector3.Distance(_waypoints[_currentWaypoint].transform.position, _NPC.transform.position) < _NPC.MovementAccuracy)
         {
             ++_currentWaypoint;
@@ -33,11 +34,8 @@ public class PatrolState : State
 
         var direction = _waypoints[_currentWaypoint].transform.position - _NPC.transform.position;
         
-        _NPC.transform.rotation = Quaternion.Slerp(_NPC.transform.rotation,
-            Quaternion.LookRotation(direction), 
-            _NPC.RotationSpeed * Time.deltaTime);
-
-        _NPC.CharacterController.Move(direction.normalized * (_NPC.Speed * Time.deltaTime));
+        _NPC.RotateTo(direction);
+        _NPC.MoveTo(direction);
         
         UpdateFlags(animator);
     }

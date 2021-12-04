@@ -13,14 +13,9 @@ public class AggressionState : State
         if (distanceToPlayer > _NPC.AttackRange)
         {
             // move to player
-            
             var direction = _player.transform.position - _NPC.transform.position;
-        
-            _NPC.transform.rotation = Quaternion.Slerp(_NPC.transform.rotation,
-                Quaternion.LookRotation(direction), 
-                _NPC.RotationSpeed * Time.deltaTime);
-
-            _NPC.CharacterController.Move(direction.normalized * (_NPC.Speed * Time.deltaTime));
+            _NPC.RotateTo(direction);
+            _NPC.MoveTo(direction);
         }
         else
         {
