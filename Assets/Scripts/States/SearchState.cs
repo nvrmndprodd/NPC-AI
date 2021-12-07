@@ -62,12 +62,4 @@ public class SearchState : State
         
         animator.SetBool(PlayerIsNotFound, true);
     }
-    
-    protected override void UpdateFlags(Animator animator)
-    {
-        animator.SetInteger(EnemyStrength, _player.GetComponent<Player>().Strength);
-        
-        animator.SetFloat(Distance, 
-            Vector3.Distance(_NPC.transform.position, _player.transform.position));
-    }
 }

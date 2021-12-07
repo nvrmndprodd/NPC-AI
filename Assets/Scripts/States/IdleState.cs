@@ -41,9 +41,6 @@ public class IdleState : State
     {
         animator.SetFloat(IdleTime, _idleTime);
         
-        animator.SetInteger(EnemyStrength, _player.GetComponent<Player>().Strength);
-        
-        animator.SetFloat(Distance, 
-           Vector3.Distance(_NPC.transform.position, _player.transform.position));
+        base.UpdateFlags(animator);
     }
 }

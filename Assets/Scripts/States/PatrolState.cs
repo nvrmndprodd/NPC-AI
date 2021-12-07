@@ -11,7 +11,7 @@ public class PatrolState : State
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         UpdateFlags(animator);
-        _waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+        _waypoints = _NPC.Waypoints;
         _currentWaypoint = 0;
     }
 
@@ -26,6 +26,7 @@ public class PatrolState : State
             
             if (_currentWaypoint >= _waypoints.Length)
             {
+                _currentWaypoint = 0;
                 animator.SetBool(RouteIsFinished, true);
 
                 return;
@@ -43,13 +44,5 @@ public class PatrolState : State
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool(RouteIsFinished, false);
-    }
-
-    protected override void UpdateFlags(Animator animator)
-    {
-        animator.SetInteger(EnemyStrength, _player.GetComponent<Player>().Strength);
-        
-        animator.SetFloat(Distance, 
-            Vector3.Distance(_NPC.transform.position, _player.transform.position));
     }
 }

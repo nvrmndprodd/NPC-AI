@@ -7,6 +7,9 @@ public class NPC : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private GameObject NPCModel;
     [SerializeField] public ParticleSystem AttackParticle;
+
+    [Header("Waypoints")] 
+    [SerializeField] private GameObject[] waypoints;
     
     [Header("NPC Stats")]
     [SerializeField] private int strength;
@@ -20,6 +23,7 @@ public class NPC : MonoBehaviour
     public Coroutine ActiveCoroutine;
 
     public Player Player => player;
+    public GameObject[] Waypoints => waypoints;
     public int Strength => strength;
     public float Speed => speed;
     public float RotationSpeed => rotationSpeed;
@@ -67,6 +71,11 @@ public class NPC : MonoBehaviour
             _characterController.Move(direction.normalized * (speed * Time.deltaTime));
             yield return null;
         }
+    }
+
+    public void HelpFriend()
+    {
+        gameObject.GetComponent<Animator>().SetBool("SomeoneAsksForHelp", true);
     }
 
     private void OnTriggerEnter(Collider other)
